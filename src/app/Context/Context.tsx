@@ -3,6 +3,7 @@ import React, { createContext, useReducer } from 'react';
 import { initialState } from './InitialState';
 import { AppReducers } from './Reducers';
 import { IProduct, IProductCart } from '../../modules/bank-store/domain/models/IProduct';
+import { ICreateTransactionResponse } from '../../modules/bank-store/domain/models/Itransaction';
 
 
 export const StoreAppContext = createContext(initialState);
@@ -24,6 +25,15 @@ function useAppReducer() {
       type: 'REMOVE_FROM_CART',
       payload: product,
     });
+  const clearCart = () =>
+    dispatch({
+      type: 'CLEAR_CART',
+    });
+  const saveTransactionResponse = (response: ICreateTransactionResponse) =>
+    dispatch({
+      type: 'SAVE_TRANSACTION_RESPONSE',
+      payload: response,
+    });
 
 
   return {
@@ -31,6 +41,8 @@ function useAppReducer() {
     reducers: {
       addToCart,
       removeFromCart,
+      clearCart,
+      saveTransactionResponse
     },
   };
 }
