@@ -14,9 +14,8 @@ export class ProductsService implements CommonDataService {
     if (savedProducts) {
       return savedProducts;
     } else {
-      const { data } = await RequestService({
+      const  data  = await RequestService({
         url: `${config.url}/products`,
-        body: {},
         headers: {},
         method: METHODS.GET,
       });

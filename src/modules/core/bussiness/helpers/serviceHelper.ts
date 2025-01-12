@@ -22,7 +22,7 @@ export const RequestService = async (props: Props) => {
             'x-api-key': `${config.apiKey}`,
             ...headers,
         },
-        body: JSON.stringify(body),
+        body: body ? JSON.stringify(body) : null,
     })
         .then(response =>
             response.json()
