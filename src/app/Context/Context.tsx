@@ -4,6 +4,7 @@ import { initialState } from './InitialState';
 import { AppReducers } from './Reducers';
 import { IProduct, IProductCart } from '../../modules/bank-store/domain/models/IProduct';
 import { ICreateTransactionResponse } from '../../modules/bank-store/domain/models/Itransaction';
+import { IcreditCardData } from '../../modules/bank-store/domain/models/ICreditCard';
 
 
 export const StoreAppContext = createContext(initialState);
@@ -34,6 +35,11 @@ function useAppReducer() {
       type: 'SAVE_TRANSACTION_RESPONSE',
       payload: response,
     });
+  const saveCreditCardData = (card_data: IcreditCardData) =>
+    dispatch({
+      type: 'SAVE_CREDIT_CARD_DATA',
+      payload: card_data,
+    });
 
 
   return {
@@ -42,7 +48,8 @@ function useAppReducer() {
       addToCart,
       removeFromCart,
       clearCart,
-      saveTransactionResponse
+      saveTransactionResponse,
+      saveCreditCardData
     },
   };
 }

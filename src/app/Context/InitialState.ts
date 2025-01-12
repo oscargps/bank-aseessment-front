@@ -9,8 +9,13 @@ export const initialState: IContext = {
     acceptanceToken: { acceptance_token: "", permalink: "", type: "" },
     personalDataToken: { acceptance_token: "", permalink: "", type: "" },
   },
-  addToCart: () => {},
-  clearCart: () => {},
-  removeFromCart: () => {},
-  saveTransactionResponse: () => {},
+  credit_card_data: {
+    token_id: "",
+    installments: 0
+  },
+  addToCart: () => { },
+  clearCart: () => { },
+  removeFromCart: () => { },
+  saveTransactionResponse: () => { },
+  saveCreditCardData: () => { },
 };

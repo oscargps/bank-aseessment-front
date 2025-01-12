@@ -11,29 +11,49 @@ import {
   Popover,
   PopoverContent,
 } from "@nextui-org/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cards, { Focused } from "react-credit-cards-2";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
 import { useAppContext } from "../../hooks/useAppContext";
 import { useNavigate } from "react-router-dom";
+import { useTokenizeCard } from "../../hooks/usePayment";
 const CreditCardForm = (props: any) => {
   const { isOpen, onOpenChange } = props;
   const navigate = useNavigate();
-  const { create_transaction_response, clearCart } = useAppContext();
+  const { create_transaction_response, clearCart, saveCreditCardData } = useAppContext();
+  const { isError, isLoading, isSuccess, mutate, data } = useTokenizeCard();
 
   const [creditCard, setCreditCardData] = useState({
     number: "",
     expiry: "",
     cvc: "",
     name: "",
+    installments: NaN,
     focus: "",
-    acceptanceToken: false,
-    personalDataToken: false,
   });
   const [acceptanceTokens, setAcceptanceTokens] = useState({
     acceptanceToken: false,
     personalDataToken: false,
   });
+
+  const handlePay = () => {
+    mutate({
+      number: creditCard.number,
+      cvc: creditCard.cvc,
+      exp_month: creditCard.expiry.substring(0, 2),
+      exp_year: creditCard.expiry.slice(-2),
+      card_holder: creditCard.name,
+    })
+
+  }
+
+  useEffect(() => {
+    if (isSuccess) {
+      saveCreditCardData({token_id:data.token_id, installments:creditCard.installments})
+      navigate("/payment")
+    }
+
+  }, [isError, isLoading, isSuccess, data])
 
   const handleInputChange = (evt: any) => {
     const { name, value } = evt.target;
@@ -98,6 +118,15 @@ const CreditCardForm = (props: any) => {
                       name="cvc"
                       placeholder="CVC"
                       value={creditCard.cvc}
+                      onChange={handleInputChange}
+                      onFocus={handleInputFocus}
+                      maxLength={3}
+                    />
+                    <Input
+                      type="number"
+                      name="installments"
+                      placeholder="Installments"
+                      value={creditCard.installments.toString()}
                       onChange={handleInputChange}
                       onFocus={handleInputFocus}
                       maxLength={3}
@@ -183,7 +212,8 @@ const CreditCardForm = (props: any) => {
               </Popover>
               <Button
                 color="primary"
-                onPress={onClose}
+                onPress={handlePay}
+                isLoading={isLoading}
                 isDisabled={
                   !(
                     acceptanceTokens.acceptanceToken &&

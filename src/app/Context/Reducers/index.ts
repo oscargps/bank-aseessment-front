@@ -1,3 +1,4 @@
+import { ITokenizedCardData } from "../../../modules/bank-store/domain/models/ICreditCard";
 import { IProduct } from "../../../modules/bank-store/domain/models/IProduct";
 import { ICreateTransactionResponse } from "../../../modules/bank-store/domain/models/Itransaction";
 import { StorageHelper } from "../../../modules/core/bussiness/helpers/storageHelper";
@@ -7,6 +8,7 @@ const ACTION_TYPES = {
   REMOVE_FROM_CART: "REMOVE_FROM_CART",
   CLEAR_CART: "CLEAR_CART",
   SAVE_TRANSACTION_RESPONSE: "SAVE_TRANSACTION_RESPONSE",
+  SAVE_CREDIT_CARD_DATA: "SAVE_CREDIT_CARD_DATA",
 };
 
 const UPDATE_STATE_BY_ACTION: { [key: string]: any } = {
@@ -52,6 +54,14 @@ const UPDATE_STATE_BY_ACTION: { [key: string]: any } = {
       create_transaction_response: data,
     };
     StorageHelper.save("cart", newState.cart);
+    return newState;
+  },
+  [ACTION_TYPES.SAVE_CREDIT_CARD_DATA]: (AppState: IContext, action: any) => {
+    const data = action.payload as ITokenizedCardData;
+    const newState = {
+      ...AppState,
+      credit_card_data: data,
+    };
     return newState;
   },
 };

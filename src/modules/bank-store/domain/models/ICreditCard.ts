@@ -8,4 +8,7 @@ export interface IcreditCardData {
   export interface ITokenizedCardResponse {
     token_id: string;
   }
+  export interface ITokenizedCardData extends ITokenizedCardResponse{
+    installments: number;
+  }
   
