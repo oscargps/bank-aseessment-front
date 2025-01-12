@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from 'react';
 
 import { initialState } from './InitialState';
 import { AppReducers } from './Reducers';
-import { IProduct } from '../../modules/bank-store/domain/models/IProduct';
+import { IProduct, IProductCart } from '../../modules/bank-store/domain/models/IProduct';
 
 
 export const StoreAppContext = createContext(initialState);
@@ -19,7 +19,7 @@ function useAppReducer() {
       type: 'ADD_TO_CART',
       payload: product,
     });
-  const removeFromCart = (product: IProduct) =>
+  const removeFromCart = (product: IProductCart) =>
     dispatch({
       type: 'REMOVE_FROM_CART',
       payload: product,

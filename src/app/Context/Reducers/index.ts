@@ -1,4 +1,5 @@
 import { IProduct } from "../../../modules/bank-store/domain/models/IProduct";
+import { StorageHelper } from "../../../modules/core/bussiness/helpers/storageHelper";
 import { IContext } from "../../Types/IContext";
 const ACTION_TYPES = {
     ADD_TO_CART: 'ADD_TO_CART',
@@ -19,6 +20,7 @@ const UPDATE_STATE_BY_ACTION: { [key: string]: any } = {
                 )
                 : [...AppState.cart, { ...data, quantity: 1 }],
         };
+        StorageHelper.save('cart', newState.cart);
         return newState;
     },
     [ACTION_TYPES.REMOVE_FROM_CART]: (AppState: IContext, action: any) => {
@@ -27,6 +29,7 @@ const UPDATE_STATE_BY_ACTION: { [key: string]: any } = {
             ...AppState,
             cart: AppState.cart.filter((item) => item.id !== data.id),
         };
+        StorageHelper.save('cart', newState.cart);
         return newState;
     },
 
