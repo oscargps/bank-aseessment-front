@@ -40,7 +40,7 @@ const CartSummaryModal = (props: any) => {
                                 <Button color="primary" onPress={onClose}>
                                     Keep shopping
                                 </Button>
-                                <Button color="success" onPress={() => (navigate(``))}>
+                                <Button color="success" onPress={() => (navigate(`/payment`))}>
                                     Go to pay
                                 </Button>
                             </ModalFooter>

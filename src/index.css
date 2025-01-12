@@ -6,7 +6,9 @@ body {
   height: 100%;
 }
 
-
+input[type=number] {
+  -moz-appearance: textfield;
+}
 
 
 h1 {
