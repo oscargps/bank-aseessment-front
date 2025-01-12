@@ -1,6 +1,5 @@
 /* istanbul ignore file */
 
-import dotenvConfig from 'dotenv';
 
 
 interface Config {
@@ -10,12 +9,11 @@ interface Config {
 }
 
 
-dotenvConfig.config({ path: '.env' });
 
 const config: Config = {
-  port: `${process.env.VITE_PORT}`,   
-  url: `${process.env.VITE_URL}`,
-  apiKey: `${process.env.VITE_API_KEY}`, 
+  port: (import.meta.env.VITE_PORT as string || ''),
+  url: (import.meta.env.VITE_URL as string || ''),
+  apiKey: (import.meta.env.VITE_API_KEY as string || ''),
 };
 
 export default config;
