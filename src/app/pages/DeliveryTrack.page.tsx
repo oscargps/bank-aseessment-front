@@ -4,7 +4,8 @@ import { IDeliveryResponse } from "../../modules/bank-store/domain/models/IDeliv
 import { Alert, Chip, CircularProgress } from "@nextui-org/react";
 import { useGetDeliveryStatus } from "../hooks/useDelivery";
 import numeral from "numeral";
-enum statusStyles {
+
+enum StatusEnum {
   PENDING = "warning",
   REJECTED = "danger",
   DELIVERED = "success",
@@ -15,7 +16,8 @@ const DeliveryTrackPage = () => {
   const [shippingData, setShippingData] =
     React.useState<IDeliveryResponse | null>(null);
   const { data, isLoading, isError } = useGetDeliveryStatus(reference || "");
-
+  //@ts-ignore
+  const statusStyles = (status: string) => StatusEnum[status]
   React.useEffect(() => {
     if (data) {
       setShippingData(data);
@@ -51,7 +53,7 @@ const DeliveryTrackPage = () => {
               Reference: {shippingData.transaction.reference}
             </p>
           </div>
-          <Chip color={statusStyles[shippingData.status]}>
+          <Chip color={statusStyles(shippingData.status)}>
             {shippingData.status}
           </Chip>
         </div>
@@ -130,7 +132,7 @@ const DeliveryTrackPage = () => {
                 $
                 {numeral(
                   shippingData.transaction.total_amount +
-                    shippingData.transaction.delivery_fee
+                  shippingData.transaction.delivery_fee
                 ).format("0,0")}
               </span>
             </div>
