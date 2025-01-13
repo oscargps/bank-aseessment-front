@@ -7,6 +7,7 @@ import { IcreditCardData, ITokenizedCardResponse } from "../../domain/models/ICr
 import {
   ICreateTransactionResponse,
   IPaymentData,
+  IPaymentDetailsResponse,
   IPaymentResponse,
   ITransaction,
 } from "../../domain/models/Itransaction";
@@ -60,5 +61,15 @@ export class PaymentService {
     } catch (error: any) {
       throw new Error(error);
     }
+  }
+
+  async getPaymentStatus(reference: string): Promise<IPaymentDetailsResponse> {
+    const data = await RequestService({
+      url: `${config.url}/transactions/status/${reference}`,
+      headers: {},
+      method: METHODS.GET,
+    });
+    return data;
+
   }
 }

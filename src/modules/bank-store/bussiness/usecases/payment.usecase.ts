@@ -5,6 +5,7 @@ import {
 import {
   ICreateTransactionResponse,
   IPaymentData,
+  IPaymentDetailsResponse,
   IPaymentResponse,
   ITransaction,
 } from "../../domain/models/Itransaction";
@@ -40,5 +41,12 @@ export class PaymentUseCase {
     } catch (error: any) {
       throw new Error(error);
     }
+  }
+
+  async getPaymentStatus(
+    RequestService: PaymentService,
+    reference: string
+  ): Promise<IPaymentDetailsResponse> {
+    return await RequestService.getPaymentStatus(reference);
   }
 }

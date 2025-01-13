@@ -54,3 +54,29 @@ export interface IPaymentResponse {
   };
   meta: Record<string, unknown>;
 }
+
+export interface IPaymentDetailsResponse {
+  data: {
+    id: string;
+    created_at: string;
+    amount_in_cents: number;
+    status: string;
+    reference: string;
+    customer_email: string;
+    currency: string;
+    payment_method_type: string;
+    payment_method: {
+      type: string;
+      phone_number: number;
+    };
+    shipping_address: {
+      address_line_1: string;
+      country: string;
+      region: string;
+      city: string;
+      phone_number: number;
+    } | null;
+    redirect_url: string;
+    payment_link_id: string | null;
+  };
+}

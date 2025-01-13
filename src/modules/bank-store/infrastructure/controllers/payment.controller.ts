@@ -37,5 +37,14 @@ class PaymentController {
       throw new Error(error);
     }
   }
+
+  getPaymentStatus(reference: string) {
+    try {
+      return this.paymentUseCase.getPaymentStatus(this.paymentService, reference);
+    } catch (error: any) {
+      throw new Error(error);
+    }
+  }
+  
 }
 export default PaymentController;
