@@ -1,7 +1,7 @@
 export interface ICreateDelivery {
     address: string
     customerId: number
-    transactionId: string
+    reference: string
 }
 
 export interface IDeliveryResponse {
@@ -10,7 +10,7 @@ export interface IDeliveryResponse {
     status: string
     customer:
     {
-        id: string
+        id: number
         name: string
         email: string
         address: string
@@ -21,17 +21,17 @@ export interface IDeliveryResponse {
         updateAt: string
     },
     transaction: {
-        id: string
+        id: number
         reference: string
-        total_amount: string
-        base_fee: string
-        delivery_fee: string
+        total_amount: number
+        base_fee: number
+        delivery_fee: number
         status: string
         bankTransactionId: string
         createAt: string
         updateAt: string
     },
-    id: string
+    id: number
     createAt: string
     updateAt: string
 }

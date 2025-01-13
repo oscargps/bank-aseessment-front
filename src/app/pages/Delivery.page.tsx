@@ -5,13 +5,15 @@ import numeral from "numeral";
 import { useCreateDelivery } from "../hooks/useDelivery";
 import { toast, Toaster } from "sonner";
 import { StorageHelper } from "../../modules/core/bussiness/helpers/storageHelper";
+import { useNavigate } from "react-router-dom";
 
 const DeliveryPage = () => {
     const [shippingAddress, setShippingAddress] = useState("");
     const [isAddressValid, setIsAddressValid] = useState(true);
     const [deliveryCreated, setDeliveryCreated] = useState(false);
-    const { cart, create_transaction_response } = useAppContext();
+    const { cart, create_transaction_response, clearCart } = useAppContext();
     const { isError, isSuccess, isLoading, mutate } = useCreateDelivery()
+    const navigate = useNavigate();
 
     const subtotal = cart.reduce(
         (acc, item) => acc + item.price * item.quantity,
@@ -29,7 +31,7 @@ const DeliveryPage = () => {
         mutate({
             address: shippingAddress,
             customerId: 1,
-            transactionId: create_transaction_response.reference
+            reference: create_transaction_response.reference
         });
     };
 
@@ -157,8 +159,11 @@ const DeliveryPage = () => {
                         color={"success"}
                         title={"You can track your delivery here!"}
                         endContent={
-                            <Button color="success" size="sm" variant="flat" onPress={() => { 
-                                window.open(`${window.location.href}/${create_transaction_response.reference}`, '_blank') }}>
+                            <Button color="success" size="sm" variant="flat" onPress={() => {
+                                window.open(`${window.location.href}/${create_transaction_response.reference}`, '_blank');
+                                clearCart();
+                                navigate('/')
+                            }}>
                                 Track
                             </Button>
                         }

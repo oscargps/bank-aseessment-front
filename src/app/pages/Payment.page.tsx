@@ -6,9 +6,11 @@ import { useAppContext } from "../hooks/useAppContext";
 import CreatePaymentRequest from "../mappers/CreatePaymentRequest.mapper";
 import PaymentResult from "../components/Payment/PaymentResult.component";
 import { StorageHelper } from "../../modules/core/bussiness/helpers/storageHelper";
+import { useNavigate } from "react-router-dom";
 
 const PaymentPage = () => {
   const AppContext = useAppContext();
+  const navigate = useNavigate();
   const [paymentStatus, setPaymentStatus] = useState(false);
   const { data, isLoading, isError, isSuccess } = useDoPayment(
     CreatePaymentRequest(AppContext)
@@ -59,8 +61,17 @@ const PaymentPage = () => {
         amount={PaymentDetail.data?.data.amount_in_cents || 0}
       />
       <div className="flex justify-center mt-10">
-
-      {PaymentDetail.data?.data.status === "APPROVED" && <Button color="primary" size="lg">Go to Delivery</Button>}
+        {PaymentDetail.data?.data.status === "APPROVED" && (
+          <Button
+            color="primary"
+            size="lg"
+            onPress={() => {
+              navigate("/delivery");
+            }}
+          >
+            Go to Delivery
+          </Button>
+        )}
       </div>
     </>
   );

@@ -15,5 +15,8 @@ class DeliveryController {
   createDelivery(delivery: ICreateDelivery) {
     return this.deliveryUseCase.createDelivery(this.deliveryService, delivery);
   }
+  getDeliveryStatus(reference: ICreateDelivery['reference']) {
+    return this.deliveryUseCase.getDeliveryStatus(this.deliveryService, reference);
+  }
 }
 export default DeliveryController;
