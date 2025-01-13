@@ -34,7 +34,6 @@ const PaymentPage = () => {
       !paymentStatus
     ) {
       setPaymentStatus(true);
-      StorageHelper.remove("cart");
       StorageHelper.remove("Products");
     } else {
       setTimeout(() => {
