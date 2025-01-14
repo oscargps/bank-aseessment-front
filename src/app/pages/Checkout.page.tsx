@@ -41,11 +41,12 @@ const CheckoutPage = () => {
         </Button>
         <h1 className="text-2xl font-bold text-center mt-10">Checkout</h1>
       </div>
-      <div className="flex flex-col items-center gap-10 mt-10 h-screen px-5 max-w-6xl mx-auto">
+      <div data-testid="checkout-page" className="flex flex-col items-center gap-10 mt-10 h-screen px-5 max-w-6xl mx-auto">
         <h1 className="text-2xl font-bold">Cart</h1>
         <CartForPayment />
 
         <Button
+          data-testid="confirm-order-button"
           isLoading={isLoading}
           variant="bordered"
           color="success"
