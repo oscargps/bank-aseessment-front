@@ -46,7 +46,7 @@ const PaymentPage = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center gap-10 mt-10">
+      <div className="flex flex-col items-center gap-10 mt-10" data-testid="payment-page">
         <h1 className="text-2xl font-bold text-center mt-10">Payment</h1>
         <Toaster position="top-center" richColors />
 
