@@ -49,7 +49,7 @@ const CreditCardForm = (props: any) => {
 
   useEffect(() => {
     if (isSuccess) {
-      saveCreditCardData({token_id:data.token_id, installments:creditCard.installments})
+      saveCreditCardData({ token_id: data.token_id, installments: creditCard.installments })
       navigate("/payment")
     }
 
@@ -93,7 +93,7 @@ const CreditCardForm = (props: any) => {
                   name={creditCard.name}
                   focused={creditCard.focus as Focused}
                 />
-                <Form className="flex flex-col gap-2 mt-10">
+                <Form data-testid="credit-card-form" className="flex flex-col gap-2 mt-10">
                   <Input
                     type="number"
                     name="number"
@@ -133,6 +133,7 @@ const CreditCardForm = (props: any) => {
                     />
                   </div>
                   <Input
+                    data-testid="input-test"
                     type="text"
                     name="name"
                     placeholder="Name on card"
@@ -147,6 +148,7 @@ const CreditCardForm = (props: any) => {
                       type="checkbox"
                       id="acceptanceToken"
                       name="acceptanceToken"
+                      data-testid="acceptanceToken"
                       onChange={handleCheckboxChange}
                     />
 
@@ -211,6 +213,7 @@ const CreditCardForm = (props: any) => {
                 </PopoverContent>
               </Popover>
               <Button
+                data-testid="pay-button"
                 color="primary"
                 onPress={handlePay}
                 isLoading={isLoading}

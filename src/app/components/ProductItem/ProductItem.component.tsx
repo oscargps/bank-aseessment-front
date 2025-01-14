@@ -8,10 +8,10 @@ interface ProductProps {
 
 const ProductItem: React.FC<ProductProps> = ({ product, onAddToCart }) => {
   return (
-    <div className="border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
-      <img 
-        src={product.image} 
-        alt={product.name} 
+    <div data-testid="Product-item" className="border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+      <img
+        src={product.image}
+        alt={product.name}
         className="w-full h-48 object-cover rounded-md mb-4"
       />
       <div className="space-y-2">
@@ -25,12 +25,13 @@ const ProductItem: React.FC<ProductProps> = ({ product, onAddToCart }) => {
             Stock: {product.stock}
           </span>
         </div>
-        <button 
+        <button
+          data-testid="add-to-cart-button"
           onClick={() => onAddToCart(product)}
           disabled={product.stock === 0}
           className={`w-full py-2 px-4 rounded-md text-sm font-medium transition-colors
-            ${product.stock === 0 
-              ? 'bg-gray-200 text-gray-500 cursor-not-allowed' 
+            ${product.stock === 0
+              ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
               : 'bg-blue-600 text-white hover:bg-blue-700 active:bg-blue-800'
             }`}
         >
@@ -39,6 +40,6 @@ const ProductItem: React.FC<ProductProps> = ({ product, onAddToCart }) => {
       </div>
     </div>
   );
-}; 
+};
 
 export default ProductItem

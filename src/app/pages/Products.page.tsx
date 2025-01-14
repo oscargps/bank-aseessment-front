@@ -23,7 +23,7 @@ const Products = () => {
 
     return (
         <>
-            <div className="container mx-auto px-4 py-8">
+            <div className="container mx-auto px-4 py-8" data-testid="products-page">
                 <div className="flex justify-between items-center mb-8">
                     <h1 className="text-3xl font-bold text-gray-900">Products</h1>
                         <Badge color="primary" content={cart.reduce((acc, item) => acc + item.quantity, 0)}>
